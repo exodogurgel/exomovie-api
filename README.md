@@ -6,7 +6,7 @@ ExoMovies app.
 
 👤 Autenticação & Usuário
 
-- [ ] Deve ser possível se cadastrar;
+- [x] Deve ser possível se cadastrar;
 - [ ] Deve ser possível se autenticar;
 - [ ] Deve ser possível obter o perfil do usuário logado;
 - [ ] Deve ser possível atualizar dados do perfil do usuário;
@@ -50,7 +50,7 @@ ExoMovies app.
 
 👤 Usuário
 
-- [ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
+- [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
 - [ ] O usuário só pode acessar dados pertencentes à sua própria conta;
 
 🎞 Filmes & Listas
@@ -80,7 +80,7 @@ ExoMovies app.
 
 ## RNFs (Requisitos não-funcionais)
 
-- [ ] A senha do usuário deve ser armazenada de forma criptografada;
+- [x] A senha do usuário deve ser armazenada de forma criptografada;
 - [ ] A autenticação deve ser baseada em JWT (JSON Web Token);
 - [ ] O backend deve ser stateless;
 - [ ] Os dados devem ser persistidos em um banco PostgreSQL;
