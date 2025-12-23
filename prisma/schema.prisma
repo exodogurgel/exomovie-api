@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ------------------------------
+// Enums
+// ------------------------------
+
+enum MovieStatus {
+  WATCHED
+  UNWATCHED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  lists      List[]
+  userMovies UserMovie[]
+
+  @@map("users")
+}
+
+model Movie {
+  id          String    @id @default(cuid())
+  tmdbId      Int       @unique
+  title       String
+  posterPath  String?
+  overview    String?
+  releaseDate DateTime?
+  createdAt   DateTime  @default(now())
+
+  lists      ListMovie[]
+  userMovies UserMovie[]
+
+  @@map("movies")
+}
+
+model List {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movies ListMovie[]
+
+  @@unique([name, userId])
+  @@map("lists")
+}
+
+// ------------------------------
+// ListMovie (pivot List ↔ Movie)
+// ------------------------------
+
+model ListMovie {
+  id      String @id @default(uuid())
+  listId  String
+  movieId String
+
+  list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, movieId])
+  @@map("list_movies")
+}
+
+// ------------------------------
+// UserMovie (status, rating, review)
+// ------------------------------
+
+model UserMovie {
+  id        String      @id @default(uuid())
+  userId    String
+  movieId   String
+  status    MovieStatus
+  rating    Int?
+  review    String?
+  createdAt DateTime    @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+  @@map("user_movies")
+}
