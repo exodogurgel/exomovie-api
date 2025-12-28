@@ -7,7 +7,7 @@ ExoMovies app.
 👤 Autenticação & Usuário
 
 - [x] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar;
+- [x] Deve ser possível se autenticar;
 - [ ] Deve ser possível obter o perfil do usuário logado;
 - [ ] Deve ser possível atualizar dados do perfil do usuário;
 - [ ] Deve ser possível excluir a conta do usuário;
